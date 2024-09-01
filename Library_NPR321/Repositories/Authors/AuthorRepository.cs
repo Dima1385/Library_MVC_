@@ -4,47 +4,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library_NPR321.Repositories.Authors
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository 
+        : GenericRepository<Author>, IAuthorRepository
     {
         private readonly AppDbContext _context;
 
-        public AuthorRepository(AppDbContext context)
+        public AuthorRepository(AppDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public bool Add(Author model)
-        {
-            _context.Authors.Add(model);
-            var res = _context.SaveChanges();
-            return res != 0;
-        }
+        public IEnumerable<Author> Authors => GetAll()
+            .AsNoTracking()
+            .Include(a => a.Books);
 
-        public bool Delete(Author model)
+        public async Task<Author?> GetByIdAsync(int? id)
         {
-            _context.Remove(model);
-            var res = _context.SaveChanges();
-            return res != 0;
-        }
+            if(id == null)
+            {
+                return null;
+            }
 
-        public IEnumerable<Author> GetAll()
-        {
-            return _context.Authors
-                .Include(a => a.Books)
-                .AsNoTracking();
-        }
-
-        public Author? GetById(int id)
-        {
-            var model = _context.Authors.FirstOrDefault(a => a.Id == id);
+            var model = await _context.Authors
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id);
             return model;
-        }
-
-        public bool Update(Author model)
-        {
-            _context.Update(model);
-            var res = _context.SaveChanges();
-            return res != 0;
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using Library_NPR321.Models;
+using System.Collections;
 
 namespace Library_NPR321.Repositories.Authors
 {
-    public interface IAuthorRepository
+    public interface IAuthorRepository : IGenericRepository<Author>
     {
-        IEnumerable<Author> GetAll();
-        bool Add(Author model);
-        bool Update(Author model);
-        bool Delete(Author model);
-        Author? GetById(int id);
+        IEnumerable<Author> Authors { get; }
+        Task<Author?> GetByIdAsync(int? id);
     }
 }

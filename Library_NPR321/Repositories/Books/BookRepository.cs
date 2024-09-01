@@ -1,7 +1,9 @@
 ﻿using Library_NPR321.Data;
 using Library_NPR321.Models;
 using Microsoft.EntityFrameworkCore;
-using Library_NPR321.Repositories.Books;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Library_NPR321.Repositories.Books
 {
@@ -14,41 +16,29 @@ namespace Library_NPR321.Repositories.Books
             _context = context;
         }
 
-        public bool Add(Book model)
+        public IEnumerable<Book> Books => _context.Books.Include(b => b.Author);
+
+        public async Task<Book?> GetByIdAsync(int id)
         {
-            _context.Books.Add(model);
-            var result = _context.SaveChanges();
-            return result > 0;
+            return await _context.Books.Include(b => b.Author).FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public bool Delete(Book model)
+        public async Task<bool> AddAsync(Book book)
         {
-            _context.Books.Remove(model);
-            var result = _context.SaveChanges();
-            return result > 0;
+            _context.Books.Add(book);
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public IEnumerable<Book> GetAll()
+        public async Task<bool> UpdateAsync(Book book)
         {
-            return _context.Books
-                .Include(b => b.Author)  // 
-                .AsNoTracking()
-                .ToList();
+            _context.Books.Update(book);
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public Book? GetById(int id)
+        public async Task<bool> DeleteAsync(Book book)
         {
-            return _context.Books
-                .Include(b => b.Author)  // 
-                .AsNoTracking()
-                .FirstOrDefault(b => b.Id == id);
-        }
-
-        public bool Update(Book model)
-        {
-            _context.Books.Update(model);
-            var result = _context.SaveChanges();
-            return result > 0;
+            _context.Books.Remove(book);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

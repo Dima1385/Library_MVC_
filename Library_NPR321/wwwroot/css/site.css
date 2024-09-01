@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.error-message {
+    margin-left: 13px;
+    color: red;
+}

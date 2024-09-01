@@ -1,0 +1,26 @@
+﻿@model Library_NPR321.Models.ViewModels.BookVM
+
+<h1>Редагування книги</h1>
+
+<form method="post" asp-controller="Book" asp-action="Update" enctype="multipart/form-data">
+    @Html.HiddenFor(b => b.Book.Id)
+
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Title" class="m-1">Назва</label>
+        <input asp-for="Book.Title" class="form-control m-1" placeholder="Назва">
+        <span class="error-message" asp-validation-for="Book.Title"></span>
+    </div>
+    <!-- Інші поля для редагування -->
+
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Image" class="m-1">Поточна обкладинка</label>
+        @if (!string.IsNullOrEmpty(Model.Book.Image))
+        {
+            <img src="~/images/@Model.Book.Image" class="img-thumbnail" alt="Book cover" style="max-width: 100px;">
+        }
+        <input type="file" class="form-control m-1" name="newImage">
+    </div>
+
+    <button type="submit" class="btn btn-success m-2">Зберегти</button>
+    <a asp-controller="Book" asp-action="Index" class="btn btn-secondary m-2">Назад</a>
+</form>

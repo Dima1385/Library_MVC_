@@ -15,7 +15,7 @@ namespace Library_NPR321.Controllers
 
         public IActionResult Index()
         {
-            var authors = _authorRepository.GetAll();
+            var authors = _authorRepository.Authors;
 
             return View(authors);
         }
@@ -29,22 +29,21 @@ namespace Library_NPR321.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Author model)
+        public async Task<IActionResult> Create(Author model)
         {
-            _authorRepository.Add(model);
+            if(ModelState.IsValid)
+            {
+                await _authorRepository.AddAsync(model);
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         // GET
-        public IActionResult Update(int? id)
+        public async Task<IActionResult> Update(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var model = _authorRepository.GetById((int)id);
+            var model = await _authorRepository.GetByIdAsync(id);
 
             if (model == null)
             {
@@ -57,22 +56,21 @@ namespace Library_NPR321.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Author model)
+        public async Task<IActionResult> Update(Author model)
         {
-            _authorRepository.Update(model);
+            if(ModelState.IsValid)
+            {
+                await _authorRepository.UpdateAsync(model);
+                return RedirectToAction("index");
+            }
 
-            return RedirectToAction("index");
+            return View(model);
         }
 
         // GET
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var model = _authorRepository.GetById((int)id);
+            var model = await _authorRepository.GetByIdAsync(id);
 
             if (model == null)
             {
@@ -85,9 +83,9 @@ namespace Library_NPR321.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Author model)
+        public async Task<IActionResult> Delete(Author model)
         {
-            _authorRepository.Delete(model);
+            await _authorRepository.RemoveAsync(model);
 
             return RedirectToAction("index");
         }
