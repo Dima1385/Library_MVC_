@@ -1,5 +1,6 @@
 using Library_NPR321.Data;
 using Library_NPR321.Repositories.Authors;
+using Library_NPR321.Repositories.Books;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var app = builder.Build();
 
