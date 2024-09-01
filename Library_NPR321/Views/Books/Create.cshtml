@@ -2,10 +2,10 @@
 
 <h1>Add book</h1>
 
-<form method="post" asp-controller="Books" asp-action="Create">
+<form method="post" asp-controller="Books" asp-action="Create" enctype="application/x-www-form-urlencoded">
     <div class="form-group" style="width: 40%">
         <label asp-for="Title" class="m-1">Title</label>
-        <input asp-for="Title" class="form-control m-1" placeholder="Title">
+        <input asp-for="Title" class="form-control m-1" placeholder="Назва">
     </div>
     <div class="form-group" style="width: 40%">
         <label asp-for="Genre" class="m-1">Genre</label>
@@ -17,11 +17,11 @@
     </div>
     <div class="form-group" style="width: 40%">
         <label asp-for="PageCount" class="m-1">Page Count</label>
-        <input asp-for="PageCount" class="form-control m-1" placeholder="Page Count">
+        <input asp-for="PageCount "min="1" class="form-control m-1" placeholder="Page Count">
     </div>
     <div class="form-group" style="width: 40%">
         <label asp-for="Year" class="m-1">Year</label>
-        <input asp-for="Year" class="form-control m-1" placeholder="Year">
+        <input asp-for="Year" min="1" class="form-control m-1" placeholder="Year">
     </div>
     <div class="form-group" style="width: 40%">
         <label asp-for="Publisher" class="m-1">Publisher</label>
