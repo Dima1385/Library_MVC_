@@ -1,0 +1,66 @@
+﻿@model Library_NPR321.Models.ViewModels.BookVM
+
+<h1>Редагування книги</h1>
+
+<form method="post" asp-controller="Book" asp-action="Update" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Book.Id" />
+
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Title" class="m-1">Назва</label>
+        <input asp-for="Book.Title" class="form-control m-1" placeholder="Назва" />
+        <span asp-validation-for="Book.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Description" class="m-1">Опис</label>
+        <input asp-for="Book.Description" class="form-control m-1" placeholder="Опис" />
+        <span asp-validation-for="Book.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Language" class="m-1">Мова</label>
+        <input asp-for="Book.Language" class="form-control m-1" placeholder="Мова" />
+        <span asp-validation-for="Book.Language" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Genre" class="m-1">Жанр</label>
+        <input asp-for="Book.Genre" class="form-control m-1" placeholder="Жанр" />
+        <span asp-validation-for="Book.Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.PageCount" class="m-1">К-сть сторінок</label>
+        <input type="number" min="1" asp-for="Book.PageCount" class="form-control m-1" placeholder="К-сть сторінок" />
+        <span asp-validation-for="Book.PageCount" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Year" class="m-1">Рік випуску</label>
+        <input type="number" min="1" asp-for="Book.Year" class="form-control m-1" placeholder="Рік випуску" />
+        <span asp-validation-for="Book.Year" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.Publisher" class="m-1">Видавництво</label>
+        <input asp-for="Book.Publisher" class="form-control m-1" placeholder="Видавництво" />
+        <span asp-validation-for="Book.Publisher" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label asp-for="Book.AuthorId" class="m-1">Автор</label>
+        <select asp-items="Model.ListItems" asp-for="Book.AuthorId" class="form-control m-1">
+            <option value="">Виберіть автора</option>
+        </select>
+        <span asp-validation-for="Book.AuthorId" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="width: 40%">
+        <label class="m-1">Обкладинка</label>
+        @if (!string.IsNullOrEmpty(Model.Book.Image))
+        {
+            <img src="@Url.Content($"~/images/books/{Model.Book.Image}")" alt="Current Image" style="max-width: 100px; max-height: 100px; display: block;" />
+            <input type="file" class="form-control m-1" name="newImage" />
+        }
+        else
+        {
+            <input type="file" class="form-control m-1" name="newImage" />
+        }
+        <span asp-validation-for="Book.Image" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary m-2">Зберегти</button>
+    <a asp-controller="Book" asp-action="Index" class="btn btn-secondary m-2">Назад</a>
+</form>

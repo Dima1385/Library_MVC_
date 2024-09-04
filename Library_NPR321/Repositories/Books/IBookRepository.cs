@@ -9,7 +9,7 @@ namespace Library_NPR321.Repositories.Books
         Task<Book?> GetByIdAsync(int id);
         Task<bool> AddAsync(Book book);
         Task<bool> UpdateAsync(Book book);
-        Task<bool> DeleteAsync(Book book); 
+        Task<bool> DeleteAsync(Book book);
         IEnumerable<Book> Books { get; }
     }
 }
