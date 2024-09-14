@@ -1,14 +1,17 @@
-﻿using Library_NPR321.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Library_NPR321.Models;
 
 namespace Library_NPR321.Data
 {
-    public class AppDbContext : IdentityDbContext<User>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
-        public AppDbContext(DbContextOptions options)
-            : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
 
+        // Додайте DbSet для ваших моделей
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
 
@@ -16,7 +19,7 @@ namespace Library_NPR321.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Authors
+            // Ініціалізація даних для Authors
             modelBuilder.Entity<Author>().HasData(
                 new Author
                 {
@@ -39,11 +42,11 @@ namespace Library_NPR321.Data
                     LastName = "Кінг",
                     Birthday = new DateTime(1947, 9, 21)
                 }
-                );
+            );
 
-            // Books
+            // Ініціалізація даних для Books
             modelBuilder.Entity<Book>().HasData(
-                new Book 
+                new Book
                 {
                     Id = 1,
                     AuthorId = 1,
@@ -121,8 +124,7 @@ namespace Library_NPR321.Data
                     Year = 1982,
                     Image = "21a02fd7-f503-40e9-b1f1-26b07def8eae.jpeg"
                 }
-
-                );
+            );
         }
     }
 }

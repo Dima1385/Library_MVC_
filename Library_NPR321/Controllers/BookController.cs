@@ -4,6 +4,7 @@ using Library_NPR321.Repositories.Authors;
 using Library_NPR321.Repositories.Books;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library_NPR321.Controllers
 {
@@ -23,14 +24,29 @@ namespace Library_NPR321.Controllers
         public IActionResult Index()
         {
             var books = _bookRepository.Books;
-
             return View(books);
         }
 
-        // GET
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _bookRepository.GetByIdAsync(id.Value);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+
+        // GET: Create book
         public IActionResult Create()
         {
-            BookVM viewModel = new BookVM
+            var viewModel = new BookVM
             {
                 Book = new Book { Title = "", Language = "", Genre = "" },
                 ListItems = _authorRepository.Authors.Select(a =>
@@ -46,7 +62,7 @@ namespace Library_NPR321.Controllers
             return View(viewModel);
         }
 
-        // POST
+        // POST: Create book
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookVM model)
@@ -54,7 +70,7 @@ namespace Library_NPR321.Controllers
             var files = HttpContext.Request.Form.Files;
             string? imageName = null;
 
-            if(files.Count > 0)
+            if (files.Count > 0)
             {
                 var imageFile = files[0];
                 var types = imageFile.ContentType.Split("/");
@@ -65,7 +81,7 @@ namespace Library_NPR321.Controllers
                     imageName = Guid.NewGuid().ToString() + "." + ext;
                     string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, Settings.BookImagePath, imageName);
 
-                    using(var stream = System.IO.File.OpenWrite(imagePath))
+                    using (var stream = System.IO.File.OpenWrite(imagePath))
                     {
                         imageFile.OpenReadStream().CopyTo(stream);
                     }
@@ -78,16 +94,16 @@ namespace Library_NPR321.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Update book
         public async Task<IActionResult> Update(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
-
-            if(book == null)
+            if (book == null)
             {
                 return NotFound();
             }
 
-            BookVM viewModel = new BookVM
+            var viewModel = new BookVM
             {
                 Book = book,
                 ListItems = _authorRepository.Authors.Select(a =>
@@ -103,7 +119,7 @@ namespace Library_NPR321.Controllers
             return View(viewModel);
         }
 
-        // POST
+        // POST: Update book
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(BookVM model)
@@ -127,7 +143,7 @@ namespace Library_NPR321.Controllers
                         imageFile.OpenReadStream().CopyTo(stream);
                     }
 
-                    if(model.Book.Image != null)
+                    if (model.Book.Image != null)
                     {
                         string oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, Settings.BookImagePath, model.Book.Image);
 

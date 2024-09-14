@@ -1,36 +1,16 @@
-﻿@model Library_NPR321.Models.Book
+﻿@model Library_MVC_.Models.Book
 
-@{
-    ViewData["Title"] = "Деталі книги";
-}
-
-<h1>@Model.Title</h1>
-
-<div>
-    <h4>Автор</h4>
-    <p>@Model.Author?.FirstName @Model.Author?.LastName</p>
-</div>
-
-<div>
-    <h4>Опис</h4>
-    <p>@Model.Description</p>
-</div>
-
-<div>
-    <h4>Рік видання</h4>
-    <p>@Model.Year</p>
-</div>
-
-<div>
-    <h4>Жанр</h4>
-    <p>@Model.Genre</p>
-</div>
-
-@if (!string.IsNullOrEmpty(Model.Image))
-{
-    <div>
-        <img src="@Url.Content($"~/images/{Model.Image}")" alt="Book Image" style="width:200px;height:auto;" />
-    </div>
-}
-
-<a asp-action="Index" class="btn btn-primary">Назад</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деталі книги</title>
+</head>
+<body>
+    <h1>@Model.Title</h1>
+    <p><strong>Автор:</strong> @Model.Author</p>
+    <p><strong>Опис:</strong> @Model.Description</p>
+    <p><strong>Дата видання:</strong> @Model.PublishDate.ToShortDateString()</p>
+    <img src="@Model.ImageUrl" alt="Book Image" style="width: 200px; height: auto;" />
+    <a href="@Url.Action("Index", "Books")">Назад до списку книг</a>
+</body>
+</html>
