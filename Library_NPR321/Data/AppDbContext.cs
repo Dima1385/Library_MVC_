@@ -1,9 +1,10 @@
 ﻿using Library_NPR321.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library_NPR321.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions options)
             : base(options) { }
@@ -52,7 +53,8 @@ namespace Library_NPR321.Data
                     Language = "eng",
                     PageCount = 360,
                     Publisher = "КСД",
-                    Year = 1997
+                    Year = 1997,
+                    Image = "10ac9d5b-b28a-44c0-97ce-887533646261.jpg"
                 },
                 new Book
                 {
@@ -64,7 +66,8 @@ namespace Library_NPR321.Data
                     Language = "eng",
                     PageCount = 352,
                     Publisher = "КСД",
-                    Year = 1998
+                    Year = 1998,
+                    Image = "c4a53845-cb61-4168-8514-a28e15e27847.jpeg"
                 },
                 new Book
                 {
@@ -76,7 +79,8 @@ namespace Library_NPR321.Data
                     Language = "eng",
                     PageCount = 704,
                     Publisher = "КСД",
-                    Year = 1954
+                    Year = 1954,
+                    Image = "73e98618-2b2b-4bc4-95f6-8ea99bf9f420.webp"
                 },
                 new Book
                 {
@@ -88,7 +92,8 @@ namespace Library_NPR321.Data
                     Language = "eng",
                     PageCount = 576,
                     Publisher = "КСД",
-                    Year = 1954
+                    Year = 1954,
+                    Image = "fc5687f7-1410-42b4-887b-3911a1b11a87.jpeg"
                 },
                 new Book
                 {
@@ -100,7 +105,8 @@ namespace Library_NPR321.Data
                     Language = "eng",
                     PageCount = 1344,
                     Publisher = "КСД",
-                    Year = 1986
+                    Year = 1986,
+                    Image = "c29f29d8-f54f-4ba0-b11d-f0cd90c811d2.jpeg"
                 },
                 new Book
                 {
@@ -112,7 +118,8 @@ namespace Library_NPR321.Data
                     Language = "eng",
                     PageCount = 240,
                     Publisher = "КСД",
-                    Year = 1982
+                    Year = 1982,
+                    Image = "21a02fd7-f503-40e9-b1f1-26b07def8eae.jpeg"
                 }
 
                 );

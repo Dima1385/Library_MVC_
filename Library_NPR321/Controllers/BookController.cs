@@ -4,10 +4,6 @@ using Library_NPR321.Repositories.Authors;
 using Library_NPR321.Repositories.Books;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Library_NPR321.Controllers
 {
@@ -24,38 +20,11 @@ namespace Library_NPR321.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Favorites()
-        {
-            var favorites = _bookRepository.Books.Where(b => b.IsFavorite).ToList();
-            return View(favorites); // Переконайтеся, що передаєте колекцію
-        }
-
         public IActionResult Index()
         {
-            var books = _bookRepository.Books.ToList();
+            var books = _bookRepository.Books;
+
             return View(books);
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var book = await _bookRepository.GetByIdAsync(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-            return View(book);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveFromFavorites(int id)
-        {
-            var book = await _bookRepository.GetByIdAsync(id);
-            if (book != null)
-            {
-                book.IsFavorite = false;
-                await _bookRepository.UpdateAsync(book);
-            }
-            return RedirectToAction("Favorites");
         }
 
         // GET
@@ -85,7 +54,7 @@ namespace Library_NPR321.Controllers
             var files = HttpContext.Request.Form.Files;
             string? imageName = null;
 
-            if (files.Count > 0)
+            if(files.Count > 0)
             {
                 var imageFile = files[0];
                 var types = imageFile.ContentType.Split("/");
@@ -96,7 +65,7 @@ namespace Library_NPR321.Controllers
                     imageName = Guid.NewGuid().ToString() + "." + ext;
                     string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, Settings.BookImagePath, imageName);
 
-                    using (var stream = System.IO.File.OpenWrite(imagePath))
+                    using(var stream = System.IO.File.OpenWrite(imagePath))
                     {
                         imageFile.OpenReadStream().CopyTo(stream);
                     }
@@ -113,7 +82,7 @@ namespace Library_NPR321.Controllers
         {
             var book = await _bookRepository.GetByIdAsync(id);
 
-            if (book == null)
+            if(book == null)
             {
                 return NotFound();
             }
@@ -158,7 +127,7 @@ namespace Library_NPR321.Controllers
                         imageFile.OpenReadStream().CopyTo(stream);
                     }
 
-                    if (model.Book.Image != null)
+                    if(model.Book.Image != null)
                     {
                         string oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, Settings.BookImagePath, model.Book.Image);
 

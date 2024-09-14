@@ -93,9 +93,6 @@ namespace Library_NPR321.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsFavorite")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Language")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -130,7 +127,6 @@ namespace Library_NPR321.Migrations
                             Description = "Перший роман серії «Гаррі Поттер» британської письменниці Дж. К. Ролінґ. Опублікований 30 червня 1997 року видавництвом «Блумсбері Паблішинґ» у Лондоні. В 2001 році було випущено однойменний художній фільм на основі роману.",
                             Genre = "Епічне фентезі",
                             Image = "10ac9d5b-b28a-44c0-97ce-887533646261.jpg",
-                            IsFavorite = false,
                             Language = "eng",
                             PageCount = 360,
                             Publisher = "КСД",
@@ -144,7 +140,6 @@ namespace Library_NPR321.Migrations
                             Description = "Другий роман серії «Гаррі Поттер» британської письменниці Дж. К. Ролінґ. Вийшов 2 липня 1998 року у видавництві «Блумсбері Паблішинґ» у Лондоні. 2002 року на основі роману знято однойменний художній фільм.",
                             Genre = "Епічне фентезі",
                             Image = "c4a53845-cb61-4168-8514-a28e15e27847.jpeg",
-                            IsFavorite = false,
                             Language = "eng",
                             PageCount = 352,
                             Publisher = "КСД",
@@ -157,8 +152,7 @@ namespace Library_NPR321.Migrations
                             AuthorId = 2,
                             Description = "«Хранителі Персня» — перша частина роману англійського письменника Дж. Р. Р. Толкіна «Володар перснів», що публікується разом із прологом, який не входить до складу всієї книги. Складається з двох книг.",
                             Genre = "Фентезі",
-                            Image = "73e98618-2b2b-4bc4-95f6-8ea99bf9f420.webp",
-                            IsFavorite = false,
+                            Image = "c4a53845-cb61-4168-8514-a28e15e27847.jpeg",
                             Language = "eng",
                             PageCount = 704,
                             Publisher = "КСД",
@@ -172,7 +166,6 @@ namespace Library_NPR321.Migrations
                             Description = "«Дві твердині» — друга частина трилогії англійського письменника Дж. Р. Р. Толкіна «Володар перснів». Складається з двох частин. Опублікована у 1954 році у Лондоні.",
                             Genre = "Фентезі",
                             Image = "fc5687f7-1410-42b4-887b-3911a1b11a87.jpeg",
-                            IsFavorite = false,
                             Language = "eng",
                             PageCount = 576,
                             Publisher = "КСД",
@@ -186,7 +179,6 @@ namespace Library_NPR321.Migrations
                             Description = "«Воно́» — роман американського письменника Стівена Кінга, написаний у жанрі жахів, уперше опублікований 1986 року видавництвом Viking Press. У творі зачіпаються важливі для Кінга теми: влада пам'яті, сила в об'єднанні, вплив травм дитинства на доросле життя.",
                             Genre = "Фантастика жахів",
                             Image = "c29f29d8-f54f-4ba0-b11d-f0cd90c811d2.jpeg",
-                            IsFavorite = false,
                             Language = "eng",
                             PageCount = 1344,
                             Publisher = "КСД",
@@ -200,7 +192,6 @@ namespace Library_NPR321.Migrations
                             Description = "«Шукач» — роман американського письменника Стівена Кінга, що розпочинає серію романів про Темну Вежу, яку Кінг презентує як свій Magnum opus. Автор розпочав роботу над романом в 1970 році, а закінчив в 1980. Протягом 1978—1981 рр. роман публікувався окремими повістями в періодиці.",
                             Genre = "Фентезі",
                             Image = "21a02fd7-f503-40e9-b1f1-26b07def8eae.jpeg",
-                            IsFavorite = false,
                             Language = "eng",
                             PageCount = 240,
                             Publisher = "КСД",

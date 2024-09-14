@@ -6,6 +6,5 @@
         Task<bool> AddAsync(TModel model);
         Task<bool> UpdateAsync(TModel model);
         Task<bool> RemoveAsync(TModel model);
-
     }
 }
