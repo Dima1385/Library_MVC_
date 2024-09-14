@@ -24,6 +24,7 @@ namespace Library_NPR321.Models
         public string? Publisher { get; set; }
         [MaxLength]
         public string? Image { get; set; }
+        public bool IsFavorite { get; set; }
 
         [ForeignKey("Author")]
         public int? AuthorId { get; set; }

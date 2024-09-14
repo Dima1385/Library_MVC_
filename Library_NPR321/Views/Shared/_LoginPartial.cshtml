@@ -1,0 +1,31 @@
+﻿@model Library_MVC_.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Реєстрація";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Register" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Avatar" class="control-label"></label>
+        <input asp-for="Avatar" type="file" class="form-control" />
+        <span asp-validation-for="Avatar" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Зареєструватися</button>
+    </div>
+</form>

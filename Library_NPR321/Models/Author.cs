@@ -15,6 +15,7 @@ namespace Library_NPR321.Models
         [MaxLength(100)]
         [ValidateNever]
         public required string LastName { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
         public DateTime Birthday { get; set; }
 
         public virtual IEnumerable<Book> Books { get; set; } = new List<Book>();

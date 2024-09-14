@@ -16,29 +16,36 @@ namespace Library_NPR321.Repositories.Books
             _context = context;
         }
 
-        public IEnumerable<Book> Books => _context.Books.Include(b => b.Author);
+        public IEnumerable<Book> Books => _context.Books.AsNoTracking().ToList();
 
-        public async Task<Book?> GetByIdAsync(int id)
+        public async Task<Book?> GetByIdAsync(int? id)
         {
-            return await _context.Books.Include(b => b.Author).FirstOrDefaultAsync(b => b.Id == id);
+            if (id == null)
+            {
+                return null;
+            }
+            return await _context.Books.FindAsync(id);
         }
 
         public async Task<bool> AddAsync(Book book)
         {
             _context.Books.Add(book);
-            return await _context.SaveChangesAsync() > 0;
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
         }
 
         public async Task<bool> UpdateAsync(Book book)
         {
-            _context.Books.Update(book);
-            return await _context.SaveChangesAsync() > 0;
+            _context.Entry(book).State = EntityState.Modified;
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
         }
 
-        public async Task<bool> DeleteAsync(Book book)
+        public async Task<bool> RemoveAsync(Book book)
         {
             _context.Books.Remove(book);
-            return await _context.SaveChangesAsync() > 0;
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
         }
     }
 }

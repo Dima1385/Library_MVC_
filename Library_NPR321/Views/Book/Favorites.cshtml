@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Library_NPR321.Models.Book>
+
+@{
+    ViewData["Title"] = "Улюблені книги";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Назва</th>
+            <th>Автор</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author?.FirstName @book.Author?.LastName</td>
+                <td>
+                    <form asp-action="RemoveFromFavorites" method="post">
+                        <input type="hidden" name="id" value="@book.Id" />
+                        <button type="submit" class="btn btn-danger">Видалити</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
